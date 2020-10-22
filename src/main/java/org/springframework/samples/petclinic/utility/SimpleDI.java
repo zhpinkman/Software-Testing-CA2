@@ -4,6 +4,9 @@ import org.springframework.samples.petclinic.owner.PetRepository;
 
 import java.util.HashMap;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * this simple class shows the main idea behind a Dependency Injection library
@@ -15,6 +18,8 @@ public abstract class SimpleDI {
 		return new SimpleDI() {
 
 			private HashMap<Class<?>, Object> container = new HashMap<>();
+			private HashMap<Class<?>, Callable<Object>> constructorContainer = new HashMap<>();
+			private ExecutorService service = Executors.newSingleThreadExecutor();
 
 			@Override
 			public void provideByInstance(Class<?> typeClass, Object instanceOfType) {
@@ -23,13 +28,15 @@ public abstract class SimpleDI {
 
 			@Override
 			public void provideByAConstructorFunction(Class<?> typeClass, Callable<Object> providerFunction) {
-				container.put(typeClass, providerFunction);
+				constructorContainer.put(typeClass, providerFunction);
 			}
 
 			@Override
 			public Object getInstanceOf(Class<?> requiredType) throws Exception {
 				if (container.containsKey(requiredType)) {
 					return container.get(requiredType);
+				} else if (constructorContainer.containsKey(requiredType)) {
+					return service.submit(constructorContainer.get(requiredType));
 				}
 				throw new Exception("class type not found!!");
 			}
