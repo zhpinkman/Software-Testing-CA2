@@ -4,8 +4,8 @@
 > Constructor injection instruments the constructor of a class,
 which used by the DI framework to inject the dependencies.
 The benefits of this injection type are:
-    %you have to read exactly one method, the constructor, to figure out what are the dependencies of this class.
-    %you create an immutable class which makes caching and so easier
+    you have to read exactly one method, the constructor, to figure out what are the dependencies of this class.
+    you create an immutable class which makes caching and so easier
 The drawback here is, again, you can’t distinguish between optional and required dependencies.
 The constructor enforces that all fields are set.
 
