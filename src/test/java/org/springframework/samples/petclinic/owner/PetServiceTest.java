@@ -42,12 +42,13 @@ class PetServiceTest {
 	@Test
 	public void findOwnerTest() {
 		int ownerId = 20;
-		given(this.owners.findById(ownerId)).willReturn(new Owner());
-		petService.findOwner(ownerId);
-		assertNotNull(owners);
-		assertNotNull(log);
-//		Mockito.verify(log, times(1)).info("find owner {}", ownerId);
-		Mockito.verify(log, times(1)).info(anyString(), anyInt());
+		Owner ownerInstance = new Owner();
+		given(this.owners.findById(ownerId)).willReturn(ownerInstance);
+		Owner returnedOwner = petService.findOwner(ownerId);
+		assertNotNull(this.owners);
+		assertNotNull(this.log);
+		Mockito.verify(this.log, times(1)).info(anyString(), anyInt());
+		assertEquals(returnedOwner, ownerInstance);
 	}
 
 	@Test
@@ -55,32 +56,37 @@ class PetServiceTest {
 		int ownerId = 20;
 		Owner mockOwner = mock(Owner.class);
 		given(mockOwner.getId()).willReturn(ownerId);
-		assertNotNull(log);
-		petService.newPet(mockOwner);
-		Mockito.verify(log, times(1)).info(anyString(), anyInt());
+		assertNotNull(this.log);
+		Pet returnedPet = petService.newPet(mockOwner);
+		Mockito.verify(this.log, times(1)).info(anyString(), anyInt());
 		Mockito.verify(mockOwner, times(1)).addPet(any(Pet.class));
+		assertNotNull(returnedPet);
 	}
 
 	@Test
 	public void findPetTest() {
-//		todo
 		int petId = 15;
-		given(this.pets.get(petId)).willReturn(new Pet());
-		petService.findPet(petId);
-		assertNotNull(pets);
-		assertNotNull(log);
-		Mockito.verify(log, times(1)).info(anyString(), anyInt());
+		Pet petInstance = new Pet();
+		given(this.pets.get(petId)).willReturn(petInstance);
+		Pet returnedPet = petService.findPet(petId);
+		assertNotNull(this.pets);
+		assertNotNull(this.log);
+		Mockito.verify(this.log, times(1)).info(anyString(), anyInt());
+		Mockito.verify(this.pets, times(1)).get(petId);
+		assertEquals(returnedPet, petInstance);
 	}
 
 	@Test
 	public void savePetTest() {
-//		todo
-		Owner newOwner = new Owner();
-		Pet mockPet = mock(Pet.class);
-		petService.savePet(mockPet, newOwner);
-		assertNotNull(log);
-//		assertEquals(1, newOwner.getPets().size());
-		Mockito.verify(log, times(1)).info(anyString(), anyInt());
+		int petId = 30;
+		Owner ownerMock = mock(Owner.class);
+		Pet petMock = mock(Pet.class);
+		given(petMock.getId()).willReturn(petId);
+		petService.savePet(petMock, ownerMock);
+		assertNotNull(this.log);
+		Mockito.verify(ownerMock, times(1)).addPet(petMock);
+		Mockito.verify(this.log, times(1)).info(anyString(), anyInt());
+		Mockito.verify(this.pets, times(1)).save(petMock);
 	}
 
 
