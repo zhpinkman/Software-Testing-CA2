@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.owner;
 
+//import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,6 +64,12 @@ class PetServiceTest {
 	@Test
 	public void findPetTest() {
 //		todo
+		int petId = 15;
+		given(this.pets.get(petId)).willReturn(new Pet());
+		petService.findPet(petId);
+		assertNotNull(pets);
+		assertNotNull(log);
+		Mockito.verify(log, times(1)).info(anyString(), anyInt());
 	}
 
 	@Test
