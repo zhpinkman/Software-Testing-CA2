@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.utility;
 
 import org.springframework.samples.petclinic.owner.PetRepository;
 
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executor;
@@ -12,6 +13,8 @@ import java.util.concurrent.Executors;
  * this simple class shows the main idea behind a Dependency Injection library
  */
 public abstract class SimpleDI {
+
+	private Dictionary<String, Object> registrations;
 
 	public static SimpleDI getDIContainer() throws Exception {
 		// todo return the singleton instance of your implementation of dependency injection container
