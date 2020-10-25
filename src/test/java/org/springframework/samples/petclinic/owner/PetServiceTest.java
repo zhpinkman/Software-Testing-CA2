@@ -75,6 +75,12 @@ class PetServiceTest {
 	@Test
 	public void savePetTest() {
 //		todo
+		Owner newOwner = new Owner();
+		Pet mockPet = mock(Pet.class);
+		petService.savePet(mockPet, newOwner);
+		assertNotNull(log);
+//		assertEquals(1, newOwner.getPets().size());
+		Mockito.verify(log, times(1)).info(anyString(), anyInt());
 	}
 
 
