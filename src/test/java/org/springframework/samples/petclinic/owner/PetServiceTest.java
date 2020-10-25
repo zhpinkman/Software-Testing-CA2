@@ -15,9 +15,9 @@ import org.springframework.samples.petclinic.utility.PetTimedCache;
 import org.springframework.samples.petclinic.utility.SimpleDI;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 
 class PetServiceTest {
@@ -51,7 +51,13 @@ class PetServiceTest {
 
 	@Test
 	public void newPetTest() {
-//		todo
+		int ownerId = 20;
+		Owner mockOwner = mock(Owner.class);
+		given(mockOwner.getId()).willReturn(ownerId);
+		assertNotNull(log);
+		petService.newPet(mockOwner);
+		Mockito.verify(log, times(1)).info(anyString(), anyInt());
+		Mockito.verify(mockOwner, times(1)).addPet(any(Pet.class));
 	}
 
 	@Test
