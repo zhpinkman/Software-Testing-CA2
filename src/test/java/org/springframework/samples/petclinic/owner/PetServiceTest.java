@@ -37,6 +37,14 @@ This behavior is also referred to as BDD that stands for Behavior Driven Develop
 
 */
 
+// verification methods: *Each test that contains -assert equal- has some sort of state verification.
+//						 *If we set some object for a class that would also be state verification,
+//							For example when we set pet or save pet in the last two test.
+//						 *Each test also has some behavior verification part. By using the "verify"
+//							method we will -observe- whether a specific method has been called in the
+//							corresponding Mock object. -Verify log- can be found inside every test.
+//							by verifying log we determine that log method has been called and furthermore
+//							if it consists of string and int.
 
 
 class PetServiceTest {
@@ -56,18 +64,7 @@ class PetServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
-	// verification methods: *Each test that contains -assert equal- has some sort of state verification.
-	//						 *If we set some object for a class that would also be state verification,
-	//							For example when we set pet or save pet in the last two test.
-	//						 *Each test also has some behavior verification part. By using the "verify"
-	//							method we will -observe- whether a specific method has been called in the
-	//							corresponding Mock object. -Verify log- can be found inside every test.
-	//							by verifying log we determine that log method has been called and furthermore
-	//							if it consists of string and int.
 
-	// Attitude: All tests use Mock objects to provide the necessary functionalities. So each test is
-	//			some sort of a Mockisty.
-	// delete all "new" ones and add mock instead!
 	@Test
 	public void findOwnerTest() {
 		int ownerId = 20;
