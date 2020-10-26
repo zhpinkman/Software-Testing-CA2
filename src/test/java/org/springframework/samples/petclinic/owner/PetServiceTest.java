@@ -38,7 +38,18 @@ class PetServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
+	// verification methods: *Each test that contains -assert equal- has some sort of state verification.
+	//						 *If we set some object for a class that would also be state verification,
+	//							For example when we set pet or save pet in the last two test.
+	//						 *Each test also has some behavior verification part. By using the "verify"
+	//							method we will -observe- whether a specific method has been called in the
+	//							corresponding Mock object. -Verify log- can be found inside every test.
+	//							by verifying log we determine that log method has been called and furthermore
+	//							if it consists of string and int.
 
+	// Attitude: All tests use Mock objects to provide the necessary functionalities. So each test is
+	//			some sort of a Mockisty.
+	// delete all "new" ones and add mock instead!
 	@Test
 	public void findOwnerTest() {
 		int ownerId = 20;
@@ -51,6 +62,8 @@ class PetServiceTest {
 		assertEquals(returnedOwner, ownerInstance);
 	}
 
+
+	//Here the addPet method has been checked by mockito.verify. An example of behavior verification.
 	@Test
 	public void newPetTest() {
 		int ownerId = 20;
@@ -63,6 +76,8 @@ class PetServiceTest {
 		assertNotNull(returnedPet);
 	}
 
+
+	//Here the get method has been checked by mockito.verify. An example of behavior verification.
 	@Test
 	public void findPetTest() {
 		int petId = 15;
@@ -76,6 +91,8 @@ class PetServiceTest {
 		assertEquals(returnedPet, petInstance);
 	}
 
+
+	//Here the addPet & save methods have been checked by mockito.verify. An example of behavior verification.
 	@Test
 	public void savePetTest() {
 		int petId = 30;
