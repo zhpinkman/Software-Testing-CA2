@@ -24,6 +24,10 @@ compared to the situation when using Setter or Constructor Injection.
 Your classes have tight coupling with your DI container and cannot be used outside of it
 You cannot create immutable objects, as you can with constructor injection
 
-
+### Second Section:
+ > It is better to test this class using the mockisty methods. For example
+>there is a method in PetTimedCache called "get" which uses one of the internal
+>methods of PetRepository (called findById). This method should be tested with a
+>mock since we are dealing with functionality of another class here.
 
 

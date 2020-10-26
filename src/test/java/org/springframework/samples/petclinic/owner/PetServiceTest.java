@@ -35,17 +35,18 @@ and also verify it. On this ground, all of our test are using mocks, and verify 
 This behavior is also referred to as BDD that stands for Behavior Driven Development.
 
 
+
+
+verification methods:*Each test that contains -assert equal- has some sort of state verification.
+					 *If we set some object for a class that would also be state verification,
+						For example when we set pet or save pet in the last two test.
+					 *Each test also has some behavior verification part. By using the "verify"
+						method we will -observe- whether a specific method has been called in the
+						corresponding Mock object. -Verify log- can be found inside every test.
+						by verifying log we determine that log method has been called and furthermore
+						if it consists of string and int.
+
 */
-
-// verification methods: *Each test that contains -assert equal- has some sort of state verification.
-//						 *If we set some object for a class that would also be state verification,
-//							For example when we set pet or save pet in the last two test.
-//						 *Each test also has some behavior verification part. By using the "verify"
-//							method we will -observe- whether a specific method has been called in the
-//							corresponding Mock object. -Verify log- can be found inside every test.
-//							by verifying log we determine that log method has been called and furthermore
-//							if it consists of string and int.
-
 
 class PetServiceTest {
 
