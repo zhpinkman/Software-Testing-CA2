@@ -21,6 +21,24 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 
+/*
+
+Our approach toward adopting a Classical or Mockisty one.
+To answer this, it's better to refer to this statement of martin fowler website:
+"If it's an easy collaboration then the choice is simple.
+If I'm a classic TDDer I don't use a mock, stub or any kind of double.
+I use a real object and state verification.
+If I'm a mockist TDDer I use a mock and behavior verification. No decisions at all."
+Having this in mind and also the fact that we want to prevent usage of any other class but the PetService,
+it sounds reasonable that we adopted the latter approach. By doing this we're able to just monitor behavior that each object is showing from itself,
+and also verify it. On this ground, all of our test are using mocks, and verify tests by their behavior.
+This behavior is also referred to as BDD that stands for Behavior Driven Development.
+
+
+*/
+
+
+
 class PetServiceTest {
 
 	@Mock
