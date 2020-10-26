@@ -20,7 +20,8 @@ This is because you can’t distinguish from the outside if a dependency is requ
 * Field:
  > This type of injection instruments some kind of reflection mechanism for injecting the required dependencies into the class.
 A drawback is, that the chance for creating a class that has multiple responsibilities is higher than
-compared to the situation when using Setter or Constructor Injection.
+compared to the situation when using Setter or 
+>Constructor Injection.
 Your classes have tight coupling with your DI container and cannot be used outside of it
 You cannot create immutable objects, as you can with constructor injection
 
@@ -29,5 +30,11 @@ You cannot create immutable objects, as you can with constructor injection
 >there is a method in PetTimedCache called "get" which uses one of the internal
 >methods of PetRepository (called findById). This method should be tested with a
 >mock since we are dealing with functionality of another class here.
+> By taking a glimpse into the PetTimedCache we can say that almost all the variables and fields are
+  somehow local and cannot be injected into the class remotely. Besides, the behavior of this class
+  doesn't have anything specific or worth to be verified behaviorally. The only thing that has to be done
+  about this class is to verify states and also their returned values. The only thing that has to be
+  injected into the PetTimedCache is the repository which would be easy to mock it. All facts said,
+  adopting the Mockist approach would be more compelling.
 
 
