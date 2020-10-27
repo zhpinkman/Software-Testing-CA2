@@ -50,10 +50,15 @@ verification methods:*Each test that contains -assert equal- has some sort of st
 
 class PetServiceTest {
 
+//	this mock is used as both getting return values just a as stub and also for behavior verification
 	@Mock
 	private PetTimedCache pets;
+
+//	this double is used as a stub to just return some sound value when called
 	@Mock
 	private OwnerRepository owners;
+
+//	this mock is used for behavior verification in all the tests
 	@Mock
 	private Logger log;
 
@@ -69,12 +74,13 @@ class PetServiceTest {
 	@Test
 	public void findOwnerTest() {
 		int ownerId = 20;
+//		dummy object
 		Owner ownerInstance = new Owner();
 		given(this.owners.findById(ownerId)).willReturn(ownerInstance);
-		Owner returnedOwner = petService.findOwner(ownerId);
 		assertNotNull(this.owners);
 		assertNotNull(this.log);
-		Mockito.verify(this.log, times(1)).info(anyString(), anyInt());
+		Owner returnedOwner = petService.findOwner(ownerId);
+		Mockito.verify(this.log, times(1)).info("find owner {}", ownerId);
 		assertEquals(returnedOwner, ownerInstance);
 	}
 
@@ -87,8 +93,9 @@ class PetServiceTest {
 		given(mockOwner.getId()).willReturn(ownerId);
 		assertNotNull(this.log);
 		Pet returnedPet = petService.newPet(mockOwner);
-		Mockito.verify(this.log, times(1)).info(anyString(), anyInt());
+		Mockito.verify(this.log, times(1)).info("add pet for owner {}", ownerId);
 		Mockito.verify(mockOwner, times(1)).addPet(any(Pet.class));
+		Mockito.verify(mockOwner, times(1)).getId();
 		assertNotNull(returnedPet);
 	}
 
@@ -97,12 +104,13 @@ class PetServiceTest {
 	@Test
 	public void findPetTest() {
 		int petId = 15;
+//		dummy object
 		Pet petInstance = new Pet();
 		given(this.pets.get(petId)).willReturn(petInstance);
-		Pet returnedPet = petService.findPet(petId);
 		assertNotNull(this.pets);
 		assertNotNull(this.log);
-		Mockito.verify(this.log, times(1)).info(anyString(), anyInt());
+		Pet returnedPet = petService.findPet(petId);
+		Mockito.verify(this.log, times(1)).info("find pet by id {}", petId);
 		Mockito.verify(this.pets, times(1)).get(petId);
 		assertEquals(returnedPet, petInstance);
 	}
@@ -112,14 +120,17 @@ class PetServiceTest {
 	@Test
 	public void savePetTest() {
 		int petId = 30;
+//		mock object
 		Owner ownerMock = mock(Owner.class);
+//		for both stubbing and verifying the behavior
 		Pet petMock = mock(Pet.class);
 		given(petMock.getId()).willReturn(petId);
 		petService.savePet(petMock, ownerMock);
 		assertNotNull(this.log);
 		Mockito.verify(ownerMock, times(1)).addPet(petMock);
-		Mockito.verify(this.log, times(1)).info(anyString(), anyInt());
+		Mockito.verify(this.log, times(1)).info("save pet {}", petId);
 		Mockito.verify(this.pets, times(1)).save(petMock);
+		Mockito.verify(petMock, times(1)).getId();
 	}
 
 
